@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fuchs FiberCraft — Donation Shop</title>
+<style>
+:root{--bg:#05070d;--panel:rgba(15,18,30,.78);--line:rgba(255,255,255,.10);--text:#f7f8ff;--muted:#9ca3b5;--a:#8b5cf6;--b:#06b6d4;--gold:#f59e0b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 20% 10%,#24124c 0,transparent 30%),radial-gradient(circle at 85% 20%,#063f55 0,transparent 28%),var(--bg);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 80%);z-index:-1}
+nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(18px);background:rgba(5,7,13,.72);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:16px 6%}
+.logo{font-weight:900;letter-spacing:1px}.logo span{color:#a78bfa}nav a{color:#cbd0df;text-decoration:none;margin-left:22px;font-size:14px}nav a:hover{color:white}
+.hero{min-height:78vh;display:grid;place-items:center;text-align:center;padding:70px 20px;position:relative}
+.orb{position:absolute;width:280px;height:280px;border-radius:50%;filter:blur(60px);opacity:.28;animation:float 7s ease-in-out infinite}.o1{background:#7c3aed;left:8%;top:18%}.o2{background:#06b6d4;right:8%;bottom:12%;animation-delay:-3s}
+@keyframes float{50%{transform:translateY(-25px) scale(1.08)}}@keyframes pulse{50%{box-shadow:0 0 45px rgba(139,92,246,.65)}}
+.badge{display:inline-block;padding:9px 15px;border:1px solid rgba(167,139,250,.35);background:rgba(124,58,237,.12);border-radius:999px;color:#c4b5fd;font-weight:800;font-size:12px}
+h1{font-size:clamp(48px,9vw,100px);line-height:.9;margin:22px 0 18px;letter-spacing:-5px;background:linear-gradient(90deg,#fff,#c4b5fd,#67e8f9,#fff);background-size:250%;-webkit-background-clip:text;color:transparent;animation:shine 5s linear infinite}
+@keyframes shine{to{background-position:250%}}.hero p{max-width:680px;margin:auto;color:var(--muted);font-size:18px}.cta{display:inline-flex;margin-top:30px;padding:15px 23px;border-radius:14px;text-decoration:none;color:white;font-weight:900;background:linear-gradient(135deg,var(--a),var(--b));box-shadow:0 0 35px rgba(139,92,246,.3);animation:pulse 3s infinite}
+section{padding:75px 6%}.section-title{text-align:center;font-size:34px;margin:0 0 10px}.section-sub{text-align:center;color:var(--muted);margin:0 auto 38px;max-width:650px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;max-width:1200px;margin:auto}
+.card{position:relative;padding:24px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025));backdrop-filter:blur(12px);transition:.3s;overflow:hidden}
+.card:before{content:"";position:absolute;inset:-2px;background:linear-gradient(120deg,transparent,rgba(139,92,246,.35),transparent);transform:translateX(-100%);transition:.7s}.card:hover:before{transform:translateX(100%)}.card:hover{transform:translateY(-7px);border-color:rgba(167,139,250,.45);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.icon{font-size:30px}.card h3{margin:12px 0 4px}.desc{color:var(--muted);font-size:13px;margin-bottom:16px}.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--line);font-size:14px}.price{font-weight:900;color:#fbbf24;white-space:nowrap}.buy{padding:7px 11px;border:0;border-radius:9px;color:white;background:linear-gradient(135deg,#7c3aed,#0891b2);font-weight:800;cursor:pointer}
+.notice{max-width:900px;margin:auto;padding:20px;border:1px solid rgba(245,158,11,.25);background:rgba(245,158,11,.06);border-radius:18px;color:#fde68a;text-align:center}
+footer{text-align:center;padding:45px 20px;border-top:1px solid var(--line);color:var(--muted)}footer strong{color:white}
+#toast{position:fixed;bottom:24px;right:24px;background:#111827;border:1px solid #374151;padding:14px 18px;border-radius:12px;display:none;z-index:50;box-shadow:0 15px 40px #0008}
+@media(max-width:650px){nav .links{display:none}section{padding:55px 4%}h1{letter-spacing:-3px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">🦊 FUCHS <span>FIBERCRAFT</span></div>
+  <div class="links"><a href="#shop">Shop</a><a href="#services">Services</a><a href="#info">Info</a><a href="https://discord.gg/pqsC66NgYS" target="_blank">Discord</a></div>
+</nav>
+
+<header class="hero">
+  <div class="orb o1"></div><div class="orb o2"></div>
+  <div>
+    <div class="badge">⚡ PREMIUM DONATION SHOP</div>
+    <h1>DONATION<br>SHOP</h1>
+    <p>Hol dir deine gewünschten Items, Services und exklusiven Angebote. Schnell, übersichtlich und mit einem kleinen bisschen Chaos. 🦖</p>
+    <a class="cta" href="#shop">🔥 SHOP ÖFFNEN</a><a class="cta" style="margin-left:10px" href="https://discord.gg/pqsC66NgYS" target="_blank">💬 DISCORD</a>
+  </div>
+</header>
+
+<main id="shop">
+<section>
+<h2 class="section-title">💰 Unsere Angebote</h2>
+<p class="section-sub">Wähle dein Paket und klicke auf <b>Kaufen</b>. Die Buttons sind vorbereitet und können mit deinem echten Checkout-/Discord-Link verbunden werden.</p>
+<div class="grid">
+
+<article class="card"><div class="icon">🦖</div><h3>DINO CAPS</h3><div class="desc">Caps für deine Dino-Action.</div>
+<div class="item"><span>1× SINGLE CAP</span><span class="price">1 💰</span><button class="buy" onclick="buy('SINGLE CAP')">Kaufen</button></div>
+<div class="item"><span>1× DOUBLE CAP</span><span class="price">3 💰</span><button class="buy" onclick="buy('DOUBLE CAP')">Kaufen</button></div>
+<div class="item"><span>1× TRIPLE CAP</span><span class="price">5 💰</span><button class="buy" onclick="buy('TRIPLE CAP')">Kaufen</button></div>
+<div class="item"><span>1× FLEX CAP</span><span class="price">8 💰</span><button class="buy" onclick="buy('FLEX CAP')">Kaufen</button></div></article>
+
+<article class="card"><div class="icon">📜</div><h3>BLUEPRINTS</h3><div class="desc">Blueprint-Pakete.</div>
+<div class="item"><span>1× BLUEPRINT</span><span class="price">2 💰</span><button class="buy" onclick="buy('1 BLUEPRINT')">Kaufen</button></div>
+<div class="item"><span>5× BLUEPRINTS</span><span class="price">5 💰</span><button class="buy" onclick="buy('5 BLUEPRINTS')">Kaufen</button></div></article>
+
+<article class="card"><div class="icon">💠</div><h3>ASCENSION</h3><div class="desc">Für Player oder deine komplette Tribe.</div>
+<div class="item"><span>1× PLAYER</span><span class="price">5 💰</span><button class="buy" onclick="buy('ASCENSION PLAYER')">Kaufen</button></div>
+<div class="item"><span>10× FULL TRIBE</span><span class="price">15 💰</span><button class="buy" onclick="buy('ASCENSION FULL TRIBE')">Kaufen</button></div></article>
+
+<article class="card"><div class="icon">🛠️</div><h3>GCM TIME</h3><div class="desc">Mehr Zeit, mehr Möglichkeiten.</div>
+<div class="item"><span>5 MINUTES</span><span class="price">10 💰</span><button class="buy" onclick="buy('5 GCM MINUTES')">Kaufen</button></div>
+<div class="item"><span>10 MINUTES</span><span class="price">15 💰</span><button class="buy" onclick="buy('10 GCM MINUTES')">Kaufen</button></div>
+<div class="item"><span>15 MINUTES</span><span class="price">25 💰</span><button class="buy" onclick="buy('15 GCM MINUTES')">Kaufen</button></div>
+<div class="item"><span>20 MINUTES</span><span class="price">35 💰</span><button class="buy" onclick="buy('20 GCM MINUTES')">Kaufen</button></div></article>
+
+<article class="card"><div class="icon">📦</div><h3>DEDI FILL</h3><div class="desc">Fill-Pakete für deinen Server.</div>
+<div class="item"><span>10 FILLS</span><span class="price">10 💰</span><button class="buy" onclick="buy('10 FILLS')">Kaufen</button></div>
+<div class="item"><span>15 FILLS</span><span class="price">15 💰</span><button class="buy" onclick="buy('15 FILLS')">Kaufen</button></div>
+<div class="item"><span>20 FILLS</span><span class="price">20 💰</span><button class="buy" onclick="buy('20 FILLS')">Kaufen</button></div>
+<div class="item"><span>30 FILLS</span><span class="price">50 💰</span><button class="buy" onclick="buy('30 FILLS')">Kaufen</button></div></article>
+
+<article class="card"><div class="icon">🧹</div><h3>DINO PAINTS</h3><div class="desc">Paint-Pakete.</div>
+<div class="item"><span>1× DINO PAINT</span><span class="price">1 💰</span><button class="buy" onclick="buy('1 DINO PAINT')">Kaufen</button></div>
+<div class="item"><span>5× DINO PAINTS</span><span class="price">3 💰</span><button class="buy" onclick="buy('5 DINO PAINTS')">Kaufen</button></div></article>
+
+<article class="card"><div class="icon">🗻</div><h3>CUSTOM CAVES</h3><div class="desc">Spezielle Eingänge für deine Cave.</div>
+<div class="item"><span>❎ CLOSED</span><span class="price">2 💰</span><button class="buy" onclick="buy('CLOSED INTRANCE')">Kaufen</button></div>
+<div class="item"><span>🦖 STEGO</span><span class="price">4 💰</span><button class="buy" onclick="buy('STEGO INTRANCE')">Kaufen</button></div>
+<div class="item"><span>🐢 CARBO</span><span class="price">6 💰</span><button class="buy" onclick="buy('CARBO INTRANCE')">Kaufen</button></div>
+<div class="item"><span>🧍 CROUCH</span><span class="price">10 💰</span><button class="buy" onclick="buy('CROUCH INTRANCE')">Kaufen</button></div>
+<div class="item"><span>🦤 PELA</span><span class="price">12 💰</span><button class="buy" onclick="buy('PELA INTRANCE')">Kaufen</button></div></article>
+
+<article class="card"><div class="icon">🦎</div><h3>SPECIAL DINOS</h3><div class="desc">Exklusive Reaper Queen Angebote.</div>
+<div class="item"><span>LVL 900 REAPER</span><span class="price">15 💰</span><button class="buy" onclick="buy('REAPER QUEEN LVL 900')">Kaufen</button></div>
+<div class="item"><span>LVL 1200 REAPER</span><span class="price">30 💰</span><button class="buy" onclick="buy('REAPER QUEEN LVL 1200')">Kaufen</button></div></article>
+
+<article class="card"><div class="icon">🐉</div><h3>SPACE WHALE</h3><div class="desc">Space Whale in drei Varianten.</div>
+<div class="item"><span>LVL 900</span><span class="price">1 💰</span><button class="buy" onclick="buy('SPACE WHALE LVL 900')">Kaufen</button></div>
+<div class="item"><span>LVL 1200</span><span class="price">3 💰</span><button class="buy" onclick="buy('SPACE WHALE LVL 1200')">Kaufen</button></div>
+<div class="item"><span>1× FLEX</span><span class="price">6 💰</span><button class="buy" onclick="buy('FLEX SPACE WHALE')">Kaufen</button></div></article>
+
+<article class="card"><div class="icon">🦂</div><h3>NOGLIN</h3><div class="desc">Noglin-Angebote.</div>
+<div class="item"><span>LVL 1725 NOGLIN</span><span class="price">1 💰</span><button class="buy" onclick="buy('NOGLIN LVL 1725')">Kaufen</button></div>
+<div class="item"><span>1× FLEX CAP</span><span class="price">5 💰</span><button class="buy" onclick="buy('FLEX CAP NOGLIN')">Kaufen</button></div></article>
+
+<article class="card"><div class="icon">🏛️</div><h3>PRIVATE SERVICES</h3><div class="desc">Individuelle Services.</div>
+<div class="item"><span>PASS CHANGE</span><span class="price">2,50 💰</span><button class="buy" onclick="buy('PASS CHANGE')">Kaufen</button></div>
+<div class="item"><span>CUSTOM TRIBE ROLE</span><span class="price">5 💰</span><button class="buy" onclick="buy('CUSTOM TRIBE ROLE')">Kaufen</button></div></article>
+
+</div></section>
+
+<section id="services"><div class="notice">🔒 <b>PRIVATE ONLY:</b> Reaper Queen LVL 900 / 1200 ist laut deiner Vorlage nur auf Private verfügbar.</div></section>
+<section id="info"><h2 class="section-title">🔥 Secure Your Purchase</h2><p class="section-sub">Zahlungen laufen über PayPal. Für Support, Fragen und Bestellungen kannst du direkt unserem Discord beitreten.</p></section>
+</main>
+
+<footer><strong>💰 FUCHS FIBERCRAFT 💰</strong><br><br>Premium Donation Shop · © 2026</footer>
+<div id="toast"></div>
+<script>
+const CHECKOUT_URL = "https://www.paypal.me/FuchsFibercraft12";
+const DISCORD_URL = "https://discord.gg/pqsC66NgYS";
+function buy(item){
+  if(CHECKOUT_URL.includes("discord.com/")){
+    const t=document.getElementById("toast");
+    t.textContent="🛒 "+item+" ausgewählt — hinterlege zuerst deinen echten Checkout-Link.";
+    t.style.display="block"; setTimeout(()=>t.style.display="none",3500);
+  }else{
+    window.open(CHECKOUT_URL,"_blank");
+  }
+}
+</script>
+</body>
+</html>
