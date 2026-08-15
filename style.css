@@ -1,5 +1,5 @@
-/* existing style.css content up to end ...
-NOTE: For brevity in the API call, I include the entire original file content from the repo with the new menu styles appended at the end. Below is the full file content. */
+/* existing style.css content up to end ... retained unchanged */
+/* (file updated to ensure only price elements animate; other animations disabled) */
 * {
     margin: 0;
     padding: 0;
@@ -644,4 +644,54 @@ body {
 /* prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .nav-links, .hamburger .bar, body.nav-open .nav-links { transition: none !important; animation: none !important; }
+}
+
+/* ===== OVERRIDE: Disable most animations/transitions so ONLY prices animate ===== */
+/* Turn off animations/transitions on everything except price badges */
+.logo,
+.glitch,
+.glitch::before,
+.glitch::after,
+.subtitle,
+.section-title,
+.product-image,
+.product-card::before,
+.paypal-link,
+.blink-pulse,
+.neon-border,
+.cta-button::before,
+.cta-button:hover,
+.buy-btn:hover,
+.nav-links a::after,
+.product-card:hover,
+.section-title,
+.logo,
+.logo svg {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+}
+
+/* Ensure shimmer keyframes are not used elsewhere */
+.product-card::before { animation: none !important; }
+.paypal-link { animation: none !important; }
+.blink-pulse { animation: none !important; }
+.neon-border { animation: none !important; }
+
+/* Add a focused, accessible blink effect only for price elements */
+@keyframes price-blink {
+    0% { opacity: 1; transform: translateY(0); }
+    50% { opacity: 0.6; transform: translateY(-2px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.product-card .price {
+    animation: price-blink 1.2s ease-in-out infinite;
+    /* keep the glow effect for prices */
+    text-shadow: 0 0 10px var(--neon-green);
+}
+
+/* Respect prefers-reduced-motion: disable price animation if user requests reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .product-card .price { animation: none !important; }
 }
