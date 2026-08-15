@@ -71,11 +71,11 @@
   main{display:grid;grid-template-columns:1fr 360px;gap:20px}
   @media (max-width:880px){main{grid-template-columns:1fr} .sidebar{order:2}}
 
-  .shop{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+  .shop{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.12)}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
   .card{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);position:relative;overflow:hidden}
   .card h3{margin:0 0 8px;font-size:14px;color:#fff}
-  .price{position:absolute;right:10px;top:10px;background:linear-gradient(90deg,var(--accent1),#ffb86b);padding:6px 10px;border-radius:8px;font-weight:700;color:#071022;box-shadow:0 6px 18px rgba(255,122,24,0.12)}
+  .price{position:absolute;right:10px;top:10px;background:linear-gradient(90deg,var(--accent1),#ffb86b);padding:6px 10px;border-radius:8px;font-weight:700;color:#071022;box-shadow:0 6px 18px rgba(0,0,0,0.18)}
   .list{font-size:13px;color:var(--muted);line-height:1.5;margin:6px 0 0;padding:0;list-style:none}
   .list li{padding:4px 0}
 
@@ -91,7 +91,7 @@
   .sidebar{position:sticky;top:28px;height:fit-content}
   .panel{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005));padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
   .big-cta{display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
-  .cta-btn{background:linear-gradient(90deg,var(--accent1),#ffb86b);border:none;color:#071022;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 10px 30px rgba(255,122,24,0.12);transition:transform .15s}
+  .cta-btn{background:linear-gradient(90deg,var(--accent1),#ffb86b);border:none;color:#071022;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 10px 30px rgba(255,122,24,0.12)}
   .cta-btn:hover{transform:translateY(-4px)}
   .muted{color:var(--muted);font-size:13px}
 
@@ -102,39 +102,69 @@
   @keyframes wag{0%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}100%{transform:rotate(-6deg)}}
 
   /* small shimmer for price badges */
-  .price::before{content:"";position:absolute;left:-30%;top:-40%;width:200%;height:80%;background:linear-gradient(120deg,rgba(255,255,255,0.25),rgba(255,255,255,0.02));transform:skewX(-20deg);opacity:.12;animation:shimmer 3.2s linear infinite}
+  .price::before{content:"";position:absolute;left:-30%;top:-40%;width:200%;height:80%;background:linear-gradient(120deg,rgba(255,255,255,0.25),rgba(255,255,255,0.02));transform:skewX(-20deg);opacity:0.12}
   @keyframes shimmer{0%{transform:translateX(-100%) skewX(-20deg)}100%{transform:translateX(100%) skewX(-20deg)}}
 
   /* copy link small notice */
-  .copied{position:fixed;right:20px;bottom:20px;background:#071022;color:var(--neon);padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 30px rgba(0,0,0,0.6);opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s}
+  .copied{position:fixed;right:20px;bottom:20px;background:#071022;color:var(--neon);padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 30px rgba(0,0,0,0.3);opacity:0;transform:translateY(10px);transition:opacity .28s,transform .28s}
   .copied.show{opacity:1;transform:translateY(0)}
 </style>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <canvas id="bgCanvas"></canvas>
 
 <div class="wrap">
-  <header>
-    <div class="logo" aria-hidden="true">
-      <!-- stylized fox SVG -->
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fuchs Logo">
-        <defs>
-          <linearGradient id="g1" x1="0" x2="1">
-            <stop offset="0" stop-color="#ff7a18"/>
-            <stop offset="1" stop-color="#ff4d6d"/>
-          </linearGradient>
-        </defs>
-        <g transform="translate(6,8) scale(.88)">
-          <path d="M44 6c0 0-18 7-26 26 0 0 3-7 9-10 0 0 0 11-2 20 0 0 7-12 20-18 0 0 0 4 0 8 0 0 18-6 25-19 0 0-6 1-13-1 0 0 4-8 1-15 0 0-9 6-14 8z" fill="url(#g1)"/>
-          <g class="tail">
-            <path d="M10 44c6 12 22 18 36 12-6 6-3 18 10 20-12 2-26-10-34-22-6-8-8-16-12-10z" fill="#ffb86b" opacity="0.95"/>
-          </g>
-        </g>
-      </svg>
-    </div>
-    <div class="title">
-      <h1><span class="flicker">💰 DONATION SHOP</span> — FuchsFibercraft</h1>
-      <p>Hier findest du exklusive Items & Services. Sicher deine Bestellung jetzt — Link in Discord posten oder direkt hier kopieren.</p>
+  <header class="navbar" role="banner">
+    <div class="nav-container">
+      <button class="hamburger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="site-nav">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="logo" aria-hidden="true">
+          <!-- stylized fox SVG -->
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fuchs Logo">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#ff7a18"/>
+                <stop offset="1" stop-color="#ff4d6d"/>
+              </linearGradient>
+            </defs>
+            <g transform="translate(6,8) scale(.88)">
+              <path d="M44 6c0 0-18 7-26 26 0 0 3-7 9-10 0 0 0 11-2 20 0 0 7-12 20-18 0 0 0 4 0 8 0 0 18-6 25-19 0 0-6 1-13-1 0 0 4-8 1-15 0 0-9 6-14 8z" fill="url(#g1)"/>
+              <g class="tail">
+                <path d="M10 44c6 12 22 18 36 12-6 6-3 18 10 20-12 2-26-10-34-22-6-8-8-16-12-10z" fill="#ffb86b" opacity="0.95"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="title">
+          <h1><span class="flicker">💰 DONATION SHOP</span> — FuchsFibercraft</h1>
+          <p>Hier findest du exklusive Items & Services. Sicher deine Bestellung jetzt — Link in Discord posten oder direkt hier kopieren.</p>
+        </div>
+      </div>
+
+      <nav id="site-nav" class="nav-links" role="navigation" aria-label="Hauptnavigation">
+        <ul style="display:flex;gap:16px;align-items:center;list-style:none;margin:0;padding:0;">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#products">Produkte</a></li>
+          <li><a href="#about">Über uns</a></li>
+          <li><a href="#contact">Kontakt</a></li>
+          <li><a href="#support" class="discord-link">Discord</a></li>
+          <li><a href="#paypal" class="paypal-link">PayPal</a></li>
+        </ul>
+
+        <div style="margin-left:12px;">
+          <label for="nav-search" class="sr-only" style="position:absolute;left:-9999px;">Produkte suchen</label>
+          <input id="nav-search" type="search" placeholder="Suche Produkte..." aria-label="Produkte suchen" style="padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:#fff" />
+        </div>
+
+        <button id="cartBtn" class="cta-btn" aria-haspopup="dialog" aria-controls="miniCart" style="margin-left:12px">Warenkorb</button>
+      </nav>
     </div>
   </header>
 
@@ -282,7 +312,7 @@
   const copied = document.getElementById('copied');
 
   const pageUrl = 'https://fuchs-fibercraft-shop.vercel.app';
-  const orderTemplate = `💰 DONATION SHOP — FuchsFibercraft\n\nItem: [z.B. Single Cap]\nMenge: [z.B. 1]\nPreis: [z.B. 1💰]\nServer/Tribe: [optional]\nKontakt: FuchsFibercraft#0001\n\nBitte senden, damit wir die Bestellung bearbeiten können.`;
+  const orderTemplate = `💰 DONATION SHOP — FuchsFibercraft\n\nItem: [z.B. Single Cap]\nMenge: [z.B. 1]\nPreis: [z.B. 1💰]\nServer/Tribe: [optional]\nKontakt: FuchsFibercraft#0001\n\nBitte [...]`;
 
   function showCopied(){
     copied.classList.add('show');
@@ -374,6 +404,82 @@
     const ly = (e.clientY / H - 0.5) * 10;
     document.querySelector('.logo').style.transform = `translate3d(${lx}px,${ly}px,0) rotate(${lx/6}deg)`;
   });
+
+  // NAV / SEARCH / MINI-CART logic (mobile slide-in menu)
+  (function(){
+    const hamburger = document.querySelector('.hamburger');
+    const body = document.body;
+    const nav = document.getElementById('site-nav');
+    const searchInput = document.getElementById('nav-search');
+    const cartBtn = document.getElementById('cartBtn');
+
+    function setNavOpen(open){
+      body.classList.toggle('nav-open', open);
+      if(hamburger) hamburger.setAttribute('aria-expanded', String(Boolean(open)));
+      if(open){
+        const firstLink = nav && nav.querySelector('a');
+        if(firstLink) firstLink.focus();
+      }
+    }
+
+    if(hamburger){
+      hamburger.addEventListener('click', ()=>{
+        setNavOpen(!body.classList.contains('nav-open'));
+      });
+    }
+
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && body.classList.contains('nav-open')){
+        setNavOpen(false);
+      }
+    });
+
+    document.addEventListener('click', (e)=>{
+      if(!body.classList.contains('nav-open')) return;
+      const path = e.composedPath && e.composedPath();
+      const insideNav = path && (path.includes(nav) || path.includes(hamburger));
+      if(!insideNav) setNavOpen(false);
+    });
+
+    // Simple live search: filter .card by textContent
+    if(searchInput){
+      let last = '';
+      searchInput.addEventListener('input', ()=>{
+        const q = searchInput.value.trim().toLowerCase();
+        if(q === last) return; last = q;
+        document.querySelectorAll('.card').forEach(card=>{
+          const text = (card.textContent || '').toLowerCase();
+          const show = q === '' || text.includes(q);
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    }
+
+    // Mini cart placeholder
+    if(cartBtn){
+      cartBtn.addEventListener('click', ()=>{
+        let mini = document.getElementById('miniCart');
+        if(!mini){
+          mini = document.createElement('aside');
+          mini.id = 'miniCart';
+          mini.setAttribute('role','dialog');
+          mini.setAttribute('aria-label','Warenkorb');
+          mini.style.position = 'fixed';
+          mini.style.right = '20px';
+          mini.style.top = '80px';
+          mini.style.width = '320px';
+          mini.style.maxWidth = '90vw';
+          mini.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))';
+          mini.style.border = '1px solid rgba(255,255,255,0.03)';
+          mini.style.padding = '1rem';
+          mini.style.zIndex = '1200';
+          mini.innerHTML = '<strong>Warenkorb</strong><p>Dein Warenkorb ist leer.</p><button id="closeMiniCart">Schließen</button>';
+          document.body.appendChild(mini);
+          document.getElementById('closeMiniCart').addEventListener('click', ()=> mini.remove());
+        }else{ mini.remove(); }
+      });
+    }
+  })();
 </script>
 </body>
 </html>
