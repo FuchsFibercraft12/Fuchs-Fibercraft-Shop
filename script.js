@@ -133,3 +133,25 @@ document.addEventListener('mousemove', (e) => {
 });
 
 console.log('🔥 FuchsFibercraft Shop Website Loaded! 🔥');
+
+
+// ===== SITE-WIDE BLINKING FOR TEXTS & NUMBERS =====
+// This injects a small CSS snippet that makes textual elements (and thus numbers inside them) blink.
+// If you want a different speed, change the '1s' duration below or the steps() timing function.
+const blinkStyle = document.createElement('style');
+blinkStyle.textContent = `
+/* Blink animation for text and numbers */
+@keyframes blinkText {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Apply to common textual elements so images/icons are not affected */
+p, h1, h2, h3, h4, h5, h6, a, span, li, label, strong, em, .subtitle, .logo, .section-title, .product-card h3, .product-card .price, .nav-links a, .footer p, .social-link, .product-image {
+  animation: blinkText 1s steps(1,end) infinite;
+}
+
+/* Allow opt-out on specific elements by adding class 'no-blink' */
+.no-blink { animation: none !important; opacity: 1 !important; }
+`;
+document.head.appendChild(blinkStyle);
