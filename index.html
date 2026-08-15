@@ -1,96 +1,379 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 FuchsFibercraft Shop - Premium Quality</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FuchsFibercraft — Donation Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="description" content="FuchsFibercraft Donation Shop — Exklusive Items & Services für deinen Server.">
+<!-- Open Graph / Social Preview -->
+<meta property="og:title" content="FuchsFibercraft — Donation Shop">
+<meta property="og:description" content="Exklusive Items & Services — sichere dir jetzt dein Item!">
+<meta property="og:image" content="/og-image.svg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fuchs-fibercraft-shop.vercel.app">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root{
+    --bg1:#07030a;
+    --bg2:#1b0520;
+    --accent1:#ff7a18; /* fuchs orange */
+    --accent2:#ffb86b;
+    --neon:#ffd166;
+    --muted:#9fb4d9;
+    --card:#071022;
+  }
+  html,body{height:100%;margin:0;font-family:Roboto,system-ui,-apple-system,Segoe UI,Arial}
+  body{
+    background: radial-gradient(1200px 600px at 10% 20%, rgba(255,122,24,0.06), transparent 8%),
+                radial-gradient(1400px 700px at 90% 80%, rgba(180,80,255,0.03), transparent 10%),
+                linear-gradient(180deg,var(--bg1),var(--bg2));
+    color:#eaf2ff;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* Canvas behind everything */
+  #bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;mix-blend-mode:screen;opacity:.95}
+
+  .wrap{position:relative;z-index:2;max-width:1100px;margin:36px auto;padding:28px}
+  header{display:flex;gap:18px;align-items:center;margin-bottom:18px}
+  .logo{
+    width:92px;height:92px;border-radius:18px;
+    background:linear-gradient(135deg,var(--accent1),#ff4d6d);
+    display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(255,122,24,0.12),0 2px 8px rgba(0,0,0,0.6);
+    transform:translateZ(0);
+  }
+  .logo svg{width:64px;height:64px;filter:drop-shadow(0 6px 18px rgba(255,122,24,0.14))}
+  .title{
+    font-family:Montserrat,Roboto,system-ui;
+    letter-spacing:0.6px;
+  }
+  .title h1{margin:0;font-size:20px;color:var(--neon);text-shadow:0 2px 14px rgba(255,200,110,0.08)}
+  .title p{margin:2px 0 0;color:var(--muted);font-size:13px}
+
+  /* header flicker */
+  .flicker{
+    display:inline-block;
+    color:var(--accent2);
+    text-shadow:0 0 18px rgba(255,186,110,0.18);
+    animation:neonFlicker 3s infinite;
+  }
+  @keyframes neonFlicker {
+    0% {opacity:1; text-shadow:0 0 20px rgba(255,186,110,0.2)}
+    8% {opacity:.4; text-shadow:none}
+    12% {opacity:1; text-shadow:0 0 26px rgba(255,200,110,0.25)}
+    30% {opacity:.9}
+    55% {opacity:.6; text-shadow:none}
+    100% {opacity:1}
+  }
+
+  main{display:grid;grid-template-columns:1fr 360px;gap:20px}
+  @media (max-width:880px){main{grid-template-columns:1fr} .sidebar{order:2}}
+
+  .shop{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+  .card{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);position:relative;overflow:hidden}
+  .card h3{margin:0 0 8px;font-size:14px;color:#fff}
+  .price{position:absolute;right:10px;top:10px;background:linear-gradient(90deg,var(--accent1),#ffb86b);padding:6px 10px;border-radius:8px;font-weight:700;color:#071022;box-shadow:0 6px 18px rgba(255,122,24,0.12)}
+  .list{font-size:13px;color:var(--muted);line-height:1.5;margin:6px 0 0;padding:0;list-style:none}
+  .list li{padding:4px 0}
+
+  /* neon outline on hover */
+  .card::after{
+    content:"";position:absolute;inset:0;border-radius:10px;pointer-events:none;opacity:0;transition:opacity .22s,transform .22s;
+    background:linear-gradient(45deg, rgba(255,122,24,0.14), rgba(255,100,180,0.06));
+    transform:scale(0.98);
+  }
+  .card:hover::after{opacity:1;transform:scale(1)}
+
+  /* sidebar */
+  .sidebar{position:sticky;top:28px;height:fit-content}
+  .panel{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005));padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+  .big-cta{display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
+  .cta-btn{background:linear-gradient(90deg,var(--accent1),#ffb86b);border:none;color:#071022;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 10px 30px rgba(255,122,24,0.12);transition:transform .15s}
+  .cta-btn:hover{transform:translateY(-4px)}
+  .muted{color:var(--muted);font-size:13px}
+
+  footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+  /* subtle tail wag on the fox svg */
+  .tail{transform-origin:62% 68%;animation:wag 1.2s ease-in-out infinite}
+  @keyframes wag{0%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}100%{transform:rotate(-6deg)}}
+
+  /* small shimmer for price badges */
+  .price::before{content:"";position:absolute;left:-30%;top:-40%;width:200%;height:80%;background:linear-gradient(120deg,rgba(255,255,255,0.25),rgba(255,255,255,0.02));transform:skewX(-20deg);opacity:.12;animation:shimmer 3.2s linear infinite}
+  @keyframes shimmer{0%{transform:translateX(-100%) skewX(-20deg)}100%{transform:translateX(100%) skewX(-20deg)}}
+
+  /* copy link small notice */
+  .copied{position:fixed;right:20px;bottom:20px;background:#071022;color:var(--neon);padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 30px rgba(0,0,0,0.6);opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s}
+  .copied.show{opacity:1;transform:translateY(0)}
+</style>
 </head>
 <body>
-    <!-- Particle Background -->
-    <div id="particles"></div>
-    
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <h1 class="logo">🔥 FuchsFibercraft</h1>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Produkte</a></li>
-                <li><a href="#contact">Kontakt</a></li>
-            </ul>
-        </div>
-    </nav>
+<canvas id="bgCanvas"></canvas>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="glitch" data-text="Welcome to FuchsFibercraft">Welcome to FuchsFibercraft</h1>
-            <p class="subtitle">🌟 Premium Quality • Explosive Deals • 24/7 Support</p>
-            <button class="cta-button">Shop Now</button>
+<div class="wrap">
+  <header>
+    <div class="logo" aria-hidden="true">
+      <!-- stylized fox SVG -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fuchs Logo">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1">
+            <stop offset="0" stop-color="#ff7a18"/>
+            <stop offset="1" stop-color="#ff4d6d"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(6,8) scale(.88)">
+          <path d="M44 6c0 0-18 7-26 26 0 0 3-7 9-10 0 0 0 11-2 20 0 0 7-12 20-18 0 0 0 4 0 8 0 0 18-6 25-19 0 0-6 1-13-1 0 0 4-8 1-15 0 0-9 6-14 8z" fill="url(#g1)"/>
+          <g class="tail">
+            <path d="M10 44c6 12 22 18 36 12-6 6-3 18 10 20-12 2-26-10-34-22-6-8-8-16-12-10z" fill="#ffb86b" opacity="0.95"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="title">
+      <h1><span class="flicker">💰 DONATION SHOP</span> — FuchsFibercraft</h1>
+      <p>Hier findest du exklusive Items & Services. Sicher deine Bestellung jetzt — Link in Discord posten oder direkt hier kopieren.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="shop">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <strong style="font-size:13px;color:var(--muted)">Alle Items</strong>
+        <small class="muted">Letzte Aktualisierung: <span id="updated">—</span></small>
+      </div>
+
+      <div class="grid" aria-live="polite">
+        <div class="card">
+          <h3>🦖 DINO CAPS <span class="price">1–8💰</span></h3>
+          <ul class="list">
+            <li>Single Cap — 1💰</li>
+            <li>Double Cap — 3💰</li>
+            <li>Triple Cap — 5💰</li>
+            <li>Flex Cap — 8💰</li>
+          </ul>
         </div>
-        <div class="neon-border"></div>
+
+        <div class="card">
+          <h3>📜 BLUEPRINTS <span class="price">2–5💰</span></h3>
+          <ul class="list">
+            <li>1 Blueprint — 2💰</li>
+            <li>5 Blueprints — 5💰</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>💠 ASCENSION <span class="price">5–15💰</span></h3>
+          <ul class="list">
+            <li>1 Player — 5💰</li>
+            <li>10 Full Tribe — 15💰</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>🛠️ GCM TIME <span class="price">10–35💰</span></h3>
+          <ul class="list">
+            <li>5 Minutes — 10💰</li>
+            <li>10 Minutes — 15💰</li>
+            <li>15 Minutes — 25💰</li>
+            <li>20 Minutes — 35💰</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>📦 DEDI FILL <span class="price">10–50💰</span></h3>
+          <ul class="list">
+            <li>10 Fills — 10💰</li>
+            <li>15 Fills — 15💰</li>
+            <li>20 Fills — 20💰</li>
+            <li>30 Fills — 50💰</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>🧹 DINO PAINTS <span class="price">1–3💰</span></h3>
+          <ul class="list">
+            <li>1 Dino Paint — 1💰</li>
+            <li>5 Dino Paints — 3💰</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>🗻 CUSTOM CAVES <span class="price">2–12💰</span></h3>
+          <ul class="list">
+            <li>Closed Entrance — 2💰</li>
+            <li>Stego Entrance — 4💰</li>
+            <li>Carbo Entrance — 6💰</li>
+            <li>Crouch Entrance — 10💰</li>
+            <li>Pela Entrance — 12💰</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>🦎 SPECIAL DINOS <span class="price">15–30💰</span></h3>
+          <ul class="list">
+            <li>Lvl 900 Reaper Queen — 15💰</li>
+            <li>Lvl 1200 Reaper Queen — 30💰 (nur privat)</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>🐉 SPACE WHALE <span class="price">1–6💰</span></h3>
+          <ul class="list">
+            <li>Lvl 900 — 1💰</li>
+            <li>Lvl 1200 — 3💰</li>
+            <li>Flex Space Whale — 6💰</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>🦂 NOGLIN <span class="price">1–5💰</span></h3>
+          <ul class="list">
+            <li>Lvl 1725 — 1💰</li>
+            <li>Flex Cap Noglin — 5💰</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>🏛️ PRIVATE SERVICES <span class="price">2,50–5💰</span></h3>
+          <ul class="list">
+            <li>Pass Change — 2,50💰</li>
+            <li>Custom Tribe Role — 5💰</li>
+          </ul>
+        </div>
+      </div>
+
+      <footer>
+        <small class="muted">Danke für deinen Support — FuchsFibercraft. Für Kauf: Link in Discord oder Buttons auf dieser Seite verwenden.</small>
+      </footer>
     </section>
 
-    <!-- Products Section -->
-    <section id="products" class="products">
-        <h2 class="section-title">🛍️ Unsere Produkte</h2>
-        <div class="products-grid">
-            <div class="product-card">
-                <div class="product-image">🎮</div>
-                <h3>Premium Edition</h3>
-                <p class="price">€49,99</p>
-                <p>Top Qualität & Support</p>
-                <button class="buy-btn">In den Warenkorb</button>
-            </div>
-            <div class="product-card">
-                <div class="product-image">⚡</div>
-                <h3>Ultra Fast</h3>
-                <p class="price">€79,99</p>
-                <p>Blitzschnelle Lieferung</p>
-                <button class="buy-btn">In den Warenkorb</button>
-            </div>
-            <div class="product-card">
-                <div class="product-image">💎</div>
-                <h3>Luxury Edition</h3>
-                <p class="price">€129,99</p>
-                <p>Exklusiv & Limited</p>
-                <button class="buy-btn">In den Warenkorb</button>
-            </div>
-            <div class="product-card">
-                <div class="product-image">🚀</div>
-                <h3>Mega Bundle</h3>
-                <p class="price">€199,99</p>
-                <p>Alles zusammen sparen</p>
-                <button class="buy-btn">In den Warenkorb</button>
-            </div>
-        </div>
-    </section>
+    <aside class="sidebar">
+      <div class="panel big-cta">
+        <strong style="font-size:16px">🔒 Secure your purchase</strong>
+        <div class="muted">Klicke unten, um Shop-Link oder Info in die Zwischenablage zu kopieren — für Discord-Posts optimiert.</div>
+        <button id="copyLink" class="cta-btn">Link kopieren für Discord</button>
+        <button id="copyOrder" class="cta-btn" style="background:linear-gradient(90deg,#7b3cff,#ff4d6d)">Bestell-Template kopieren</button>
+        <div style="margin-top:8px;font-size:13px;color:var(--muted)">Oder hosten lassen: GitHub Pages / Netlify / Vercel</div>
+      </div>
 
-    <!-- Links Section -->
-    <section id="contact" class="contact">
-        <h2 class="section-title">💬 Kontaktiere Uns</h2>
-        <div class="contact-container">
-            <a href="https://discord.gg/DEIN-DISCORD-LINK" target="_blank" class="social-link discord-link">
-                <span class="link-icon">💜</span>
-                <span class="link-text">Discord Server</span>
-                <span class="neon-glow"></span>
-            </a>
-            <a href="https://paypal.me/DEIN-PAYPAL-USERNAME" target="_blank" class="social-link paypal-link blinking">
-                <span class="link-icon">💰</span>
-                <span class="link-text">PayPal Donation</span>
-                <span class="neon-glow"></span>
-                <span class="blink-pulse"></span>
-            </a>
-        </div>
-    </section>
+      <div style="height:12px"></div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>© 2026 FuchsFibercraft. Alle Rechte vorbehalten. 🔥</p>
-        <p class="footer-text">Made with ❤️ and Lightning ⚡</p>
-    </footer>
+      <div class="panel">
+        <strong>Kontakt</strong>
+        <p class="muted" style="margin:8px 0 0">Discord: <strong>FuchsFibercraft#0001</strong></p>
+        <p class="muted" style="margin:6px 0 0">Zahlung & Abwicklung: im Discord klären.</p>
+      </div>
+    </aside>
+  </main>
+</div>
 
-    <script src="script.js"></script>
+<div id="copied" class="copied">Kopiert ✓</div>
+
+<script>
+  // update timestamp
+  document.getElementById('updated').textContent = new Date().toLocaleString('de-DE');
+
+  // copy link / order template
+  const copyLinkBtn = document.getElementById('copyLink');
+  const copyOrderBtn = document.getElementById('copyOrder');
+  const copied = document.getElementById('copied');
+
+  const pageUrl = 'https://fuchs-fibercraft-shop.vercel.app';
+  const orderTemplate = `💰 DONATION SHOP — FuchsFibercraft\n\nItem: [z.B. Single Cap]\nMenge: [z.B. 1]\nPreis: [z.B. 1💰]\nServer/Tribe: [optional]\nKontakt: FuchsFibercraft#0001\n\nBitte senden, damit wir die Bestellung bearbeiten können.`;
+
+  function showCopied(){
+    copied.classList.add('show');
+    setTimeout(()=>copied.classList.remove('show'), 1600);
+  }
+
+  copyLinkBtn.addEventListener('click', async ()=>{
+    try{
+      await navigator.clipboard.writeText(pageUrl);
+      showCopied();
+    }catch(e){
+      alert('Kopieren fehlgeschlagen — bitte manuell kopieren: ' + pageUrl);
+    }
+  });
+
+  copyOrderBtn.addEventListener('click', async ()=>{
+    try{
+      await navigator.clipboard.writeText(orderTemplate);
+      showCopied();
+    }catch(e){
+      alert('Kopieren fehlgeschlagen — markiere den Text und kopiere manuell.');
+    }
+  });
+
+  // background particles (glowing orbs)
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = innerWidth;
+  let H = canvas.height = innerHeight;
+  window.addEventListener('resize', ()=>{W=canvas.width=innerWidth;H=canvas.height=innerHeight;init()});
+
+  const particles = [];
+  const count = Math.max(18, Math.floor(W/80));
+  function init(){
+    particles.length = 0;
+    for(let i=0;i<count;i++){
+      particles.push({
+        x: Math.random()*W,
+        y: Math.random()*H,
+        r: 8 + Math.random()*28,
+        vx: (Math.random()-0.5)*0.3,
+        vy: (Math.random()-0.5)*0.2,
+        hue: 20 + Math.random()*340,
+        alpha: 0.04 + Math.random()*0.06
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for(const p of particles){
+      p.x += p.vx;
+      p.y += p.vy;
+      if(p.x < -50) p.x = W+50;
+      if(p.x > W+50) p.x = -50;
+      if(p.y < -50) p.y = H+50;
+      if(p.y > H+50) p.y = -50;
+
+      const g = ctx.createRadialGradient(p.x,p.y,p.r*0.05,p.x,p.y,p.r);
+      g.addColorStop(0, `hsla(${p.hue},100%,70%,${p.alpha*1.5})`);
+      g.addColorStop(0.4, `hsla(${p.hue},90%,60%,${p.alpha})`);
+      g.addColorStop(1, `hsla(${(p.hue+30)%360},80%,40%,0)`);
+      ctx.beginPath();
+      ctx.fillStyle = g;
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  init(); draw();
+
+  // randomized flicker intensity for header (extra dynamic)
+  (function dynamicFlicker(){
+    const el = document.querySelector('.flicker');
+    function tick(){
+      const dur = 2200 + Math.random()*2400;
+      const brightness = 0.9 + Math.random()*0.15;
+      el.style.opacity = brightness;
+      setTimeout(()=>{
+        el.style.opacity = 0.45 + Math.random()*0.6;
+      }, dur*0.18);
+      setTimeout(tick, dur);
+    }
+    tick();
+  })();
+
+  // subtle parallax on mouse move
+  document.addEventListener('mousemove', e=>{
+    const lx = (e.clientX / W - 0.5) * 10;
+    const ly = (e.clientY / H - 0.5) * 10;
+    document.querySelector('.logo').style.transform = `translate3d(${lx}px,${ly}px,0) rotate(${lx/6}deg)`;
+  });
+</script>
 </body>
 </html>
