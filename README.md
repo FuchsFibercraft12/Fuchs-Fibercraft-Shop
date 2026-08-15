@@ -17,8 +17,8 @@ Eine moderne, responsive Shop-Website mit krassen Neon-Effekten, Animationen und
 
 ### 1. Links aktualisieren
 Öffne `index.html` und ersetze:
-- `https://discord.gg/DEIN-DISCORD-LINK` mit deinem Discord Server Link
-- `https://paypal.me/DEIN-PAYPAL-USERNAME` mit deinem PayPal Link
+- `https://discord.gg/pqsC66NgYS` mit deinem Discord Server Link
+- `https://www.paypal.me/FuchsFibercraft12` mit deinem PayPal Link
 
 ### 2. Lokal testen
 Öffne einfach die `index.html` Datei in deinem Browser. Keine Installation nötig!
